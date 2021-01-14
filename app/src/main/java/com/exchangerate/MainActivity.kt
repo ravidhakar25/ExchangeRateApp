@@ -1,6 +1,7 @@
 package com.exchangerate
 
 import android.os.Bundle
+import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
