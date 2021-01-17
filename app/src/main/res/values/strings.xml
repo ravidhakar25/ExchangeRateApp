@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">ExchangeRateApp</string>
     <string name="api_key">OTMxNDcwNmRmNGU0ODkxZjk3YmY0ODBhOTlmZjJiNmU=</string>
+    <string name="exchange_rates">Exchange Rates</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="amount">Amount</string>
+    <string name="convert">CONVERT</string>
+    <string name="no_internet">No Internet available</string>
 </resources>

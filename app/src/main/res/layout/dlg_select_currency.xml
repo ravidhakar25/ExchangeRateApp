@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36sdp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="Select Currency"
+        android:textAppearance="@style/BlackBold13" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.2"
+        android:background="#000000" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mCurrencyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

@@ -1,10 +1,11 @@
 package com.exchangerate.repository
 
+import com.exchangerate.BuildConfig
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.HostnameVerifier
 
 class NetworkClient {
 
@@ -21,10 +22,8 @@ class NetworkClient {
                     initHttpClient()
                 }
                 if (retrofit == null) {
-                    retrofit = Retrofit.Builder()
-                        .baseUrl("https://api.currencylayer.com")
-                        .client(okHttpClient)
-                        .addConverterFactory(GsonConverterFactory.create())
+                    retrofit = Retrofit.Builder().baseUrl("http://api.currencylayer.com/")
+                        .client(okHttpClient).addConverterFactory(GsonConverterFactory.create())
                         .build()
                 }
             }
@@ -32,14 +31,20 @@ class NetworkClient {
         }
 
         private fun initHttpClient() {
-            val builder = OkHttpClient().newBuilder()
-                .hostnameVerifier(HostnameVerifier { s, sslSession -> true })
+            val builder = OkHttpClient().newBuilder().hostnameVerifier { s, sslSession -> true }
                 .connectTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(true)
-                .followRedirects(true)
-                .followSslRedirects(true)
+                .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS).addInterceptor { chain ->
+                    val requestBuilder =
+                        chain.request().newBuilder().addHeader("Accept", "application/json")
+                            .addHeader("Content-Type", "application/json");
+                    chain.proceed(requestBuilder.build())
+                }
+            if (BuildConfig.DEBUG) {
+                val interceptor = HttpLoggingInterceptor()
+                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+                builder.addInterceptor(interceptor)
+            }
             okHttpClient = builder.build()
         }
     }

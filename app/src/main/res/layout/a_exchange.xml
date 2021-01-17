@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mRootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#59DFDEDE"
+    tools:context=".ExchangeActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_10sdp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/from"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            android:gravity="start|center_vertical"
+            android:hint="@string/from"
+            android:onClick="selectCurrency"
+            android:textAllCaps="false"
+            android:textAppearance="@style/BlackBold13"
+            app:backgroundTint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:icon="@android:drawable/arrow_down_float"
+            android:textColor="@color/black"
+            app:iconTint="@color/black"
+            app:iconGravity="end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/to"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            app:iconTint="@color/black"
+            android:onClick="selectCurrency"
+            android:textColor="@color/black"
+            android:hint="@string/to"
+            app:icon="@android:drawable/arrow_down_float"
+            app:iconGravity="end"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:textAppearance="@style/BlackBold13"
+            app:backgroundTint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/from" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/aLay"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            app:boxBackgroundColor="#DDDADA"
+            app:boxBackgroundMode="outline"
+            app:boxCollapsedPaddingTop="@dimen/_5sdp"
+            app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+            app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+            app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+            app:boxCornerRadiusTopStart="@dimen/_10sdp"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="1dp"
+            app:errorTextColor="#F44336"
+            app:hintTextAppearance="@style/Hint13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/to">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDDADA"
+                android:cursorVisible="true"
+                android:gravity="center"
+                android:hint="@string/amount"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:textAppearance="@style/BlackBold20"
+                android:textColorHint="#999" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConvert"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:elevation="5dp"
+            android:onClick="convert"
+            android:text="@string/convert"
+            android:textAppearance="@style/BlackBold13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aLay"
+            app:strokeColor="@color/black" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/result"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:backgroundTint="#8BC34A"
+            android:elevation="5dp"
+            android:textAppearance="@style/BlackBold13"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnConvert"
+            app:strokeColor="@color/black" />
+
+        <ProgressBar
+            android:id="@+id/mLoader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvCurrency"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:behavior_peekHeight="@dimen/_120sdp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="false"
+        app:layout_anchorGravity="bottom"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:onClick="showExchangeRate"
+                android:text="@string/exchange_rates"
+                android:textAppearance="@style/BlackBold13" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.2"
+                android:background="#000000" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mExchangeRateView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
